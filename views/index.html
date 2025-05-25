@@ -1,0 +1,108 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="/css/style.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #1e1e2f;
+      color: #fff;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    header {
+      background-color: #0d6efd;
+      padding: 1rem 2rem;
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: white;
+    }
+    main {
+      flex-grow: 1;
+      padding: 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      background: #292b3e;
+    }
+    .card {
+      background: #3a3c59;
+      padding: 1.5rem;
+      border-radius: 8px;
+      flex: 1 1 250px;
+      box-shadow: 0 0 10px #0d6efd;
+    }
+    .card h3 {
+      margin-top: 0;
+    }
+    .logout-btn {
+      background: #ff4c4c;
+      border: none;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1rem;
+      position: absolute;
+      top: 1rem;
+      right: 2rem;
+    }
+    .logout-btn:hover {
+      background: #e03b3b;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    LMK-AGENT002 Admin Dashboard
+    <button class="logout-btn" onclick="logout()">Logout</button>
+  </header>
+  <main>
+    <div class="card">
+      <h3>Active Bots</h3>
+      <p id="activeBots">Loading...</p>
+    </div>
+    <div class="card">
+      <h3>Users</h3>
+      <p id="usersCount">Loading...</p>
+    </div>
+    <div class="card">
+      <h3>System Status</h3>
+      <p id="systemStatus">Loading...</p>
+    </div>
+    <!-- Add more cards for other info you want to show -->
+  </main>
+
+  <script>
+    async function fetchDashboardData() {
+      try {
+        const res = await fetch('/api/dashboard');
+        const data = await res.json();
+        document.getElementById('activeBots').textContent = data.activeBots || 0;
+        document.getElementById('usersCount').textContent = data.usersCount || 0;
+        document.getElementById('systemStatus').textContent = data.systemStatus || 'OK';
+      } catch (error) {
+        document.getElementById('activeBots').textContent = 'Error loading data';
+        document.getElementById('usersCount').textContent = 'Error loading data';
+        document.getElementById('systemStatus').textContent = 'Error loading data';
+      }
+    }
+
+    function logout() {
+      fetch('/logout', { method: 'POST' }).then(() => {
+        window.location.href = '/login';
+      });
+    }
+
+    fetchDashboardData();
+  </script>
+</body>
+</html>
+```
