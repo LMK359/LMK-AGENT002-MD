@@ -1,0 +1,46 @@
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Manage Sessions</title>
+</head>
+<body>
+  <h2>Uploaded Sessions</h2>
+  <table border="1" cellpadding="5">
+    <thead>
+      <tr>
+        <th>Username</th>
+        <th>Session ID</th>
+        <th>Upload Date</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody id="sessionTableBody"></tbody>
+  </table>
+
+  <script>
+    async function loadSessions() {
+      const res = await fetch('/api/sessions');
+      const sessions = await res.json();
+
+      const tbody = document.getElementById('sessionTableBody');
+      tbody.innerHTML = '';
+
+      sessions.forEach(session => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>session.username</td>
+          <td><textarea rows="2" cols="40" readonly>{session.session_id}</textarea></td>
+          <td>new Date(session.upload_date).toLocaleString()</td>
+          <td>{session.status}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    loadSessions();
+  </script>
+</body>
+</html>
+```
+
