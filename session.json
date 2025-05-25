@@ -1,0 +1,16 @@
+```json
+[
+  {
+    "username": "admin",
+    "session_id": "LMKSESSION123456789",
+    "upload_date": "2025-05-25T16:00:00Z",
+    "status": "active"
+  },
+  {
+    "username": "agent002",
+    "session_id": "AGT002SESSION87654321",
+    "upload_date": "2025-05-24T12:30:00Z",
+    "status": "inactive"
+  }
+]
+```
