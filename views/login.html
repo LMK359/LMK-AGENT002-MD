@@ -1,0 +1,95 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin Panel Login</title>
+  <link rel="stylesheet" href="/css/style.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #1e1e2f;
+      color: #fff;
+      display: flex;
+      height: 100vh;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+    }
+    .login-container {
+      background: #292b3e;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 0 10px #0d6efd;
+      width: 300px;
+      text-align: center;
+    }
+    input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin: 1rem 0;
+      border: none;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+    button {
+      background: #0d6efd;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      width: 100%;
+    }
+    button:hover {
+      background: #084cd9;
+    }
+    .error {
+      color: #ff4c4c;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+<h2>Admin Login</h2>
+    <form id="loginForm">
+      <input type="password" id="password" placeholder="Enter password" required />
+      <button type="submit">Login</button>
+    </form>
+    <p class="error" id="errorMsg" style="display:none;"></p>
+  </div>
+
+  <script>
+    const form = document.getElementById('loginForm');
+    const errorMsg = document.getElementById('errorMsg');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const password = document.getElementById('password').value;
+
+      try {
+        const res = await fetch('/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ password }),
+        });
+        const data = await res.json();
+
+        if (data.success) {
+          window.location.href = '/'; // Redirect to dashboard or home page
+        } else {
+          errorMsg.textContent = data.message;
+          errorMsg.style.display = 'block';
+        }
+      } catch (err) {
+        errorMsg.textContent = 'Network error, please try again.';
+        errorMsg.style.display = 'block';
+      }
+    });
+  </script>
+</body>
+</html>
+```
