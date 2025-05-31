@@ -1,6 +1,3 @@
-📄 `README.md`
-
-```markdown
 <h1 align="center">✨ LMK Admin Panel ✨</h1>
 
 <p align="center">
